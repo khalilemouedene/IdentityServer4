@@ -1,0 +1,24 @@
+﻿@page "/jus"
+
+
+<h3>Jus</h3>
+
+<div class="row">
+    @if (jusModels.Any())
+    {
+        @foreach (var jus in jusModels)
+        {
+            <div class="col-6 col-sm-12 col-md-5 col-lg-4 col-xl-4 mh-25 mb-4">
+                <div class="card shadow-sm rounded">
+                    <div class="card-body">
+                        <h5 class="card-title"><b>@jus.Name</b></h5>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>no jus available yet!</p>
+    }
+</div>
