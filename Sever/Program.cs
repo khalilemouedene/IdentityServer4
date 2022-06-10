@@ -21,6 +21,15 @@ if (seed)
     SeedData.EnsureSeedData(defaultString);
 }
 
+builder.Services.AddCors(confg =>
+              confg.AddPolicy("AllowAll",
+                  p => p.AllowAnyOrigin()
+                      .AllowAnyMethod()
+                      .AllowAnyHeader()));
+
+
+
+
 builder.Services.AddDbContext<AspNetIdentityDbContext>(options =>
 {
     options.UseSqlServer(defaultString, b => b.MigrationsAssembly(assembly));
@@ -43,18 +52,28 @@ builder.Services.AddIdentityServer()
     }
     ).AddDeveloperSigningCredential();
 
+builder.Services.AddControllersWithViews();
+
+//builder.Services.ConfigureApplicationCookie(config =>
+//{
+//    config.Cookie.Name = "IdentityServer.Cookie";
+//    config.LoginPath = "/Auth/Login";
+//    config.LogoutPath = "/Auth/Logout";
+//});
+
+
 
 var app = builder.Build();
-
+app.UseCors("AllowAll");
 app.UseStaticFiles();
 app.UseRouting();
 
 app.UseIdentityServer();
-//app.UseAuthorization();
+app.UseAuthorization();
 
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapDefaultControllerRoute();
-//});
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapDefaultControllerRoute();
+});
 
 app.Run();

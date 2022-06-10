@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 
 namespace Sever
 {
@@ -36,27 +37,51 @@ namespace Sever
         public static IEnumerable<Client> Clients =>
             new[]
             {
+                //new Client
+                //{
+                //    ClientId =  "m2m.client",
+                //    ClientName = "Client Credentials Client",
+                //    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                //    ClientSecrets = { new Secret("ClientSecret1".Sha256())},
+                //    AllowedScopes = { "JusAPI.read" , "JusAPI.write" }
+                //},
+                //new Client
+                //{
+                //    ClientId =  "interactive",
+                //    AllowedGrantTypes = GrantTypes.Code,
+
+                //    RedirectUris = { "http://localhost:4200" },
+                //    PostLogoutRedirectUris = { "http://localhost:4200" },
+                //    AllowOfflineAccess = true,
+                //    AllowedScopes = {"openid", "profile", "JusAPI.read" },
+                //    RequirePkce = true,
+                //    RequireConsent = false,
+                //    AllowPlainTextPkce = false,
+                //    RequireClientSecret = false,
+
+                //},
+
                 new Client
                 {
-                    ClientId =  "m2m.client",
-                    ClientName = "Client Credentials Client",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = { new Secret("ClientSecret1".Sha256())},
-                    AllowedScopes = { "JusAPI.read" , "JusAPI.write" }
-                },
-                new Client
-                {
-                    ClientId =  "interactive",
-                    ClientSecrets = { new Secret("ClientSecret1".Sha256())},
+
+                    ClientId = "angular",
+
                     AllowedGrantTypes = GrantTypes.Code,
-                    RedirectUris = { "https://localhost5444/signin-oidc" },
-                    FrontChannelLogoutUri = "https://localhost5444/sigout-oidc",
-                    PostLogoutRedirectUris = { "https://localhost5444/sigout-callback-oidc" },
-                    AllowOfflineAccess = true,
-                    AllowedScopes = {"openid", "profile", "JusAPI.read" },
                     RequirePkce = true,
-                    RequireConsent = true,
-                    AllowPlainTextPkce = false,
+                    RequireClientSecret = false,
+
+                    RedirectUris = { "http://localhost:4200" },
+                    PostLogoutRedirectUris = { "http://localhost:4200" },
+                    AllowedCorsOrigins = { "http://localhost:4200" },
+
+                    AllowedScopes = {
+                     IdentityServerConstants.StandardScopes.OpenId,
+                      "JusAPI.write"
+                    },
+
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+
                 }
             };
     }
