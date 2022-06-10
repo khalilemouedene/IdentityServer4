@@ -21,11 +21,6 @@ if (seed)
     SeedData.EnsureSeedData(defaultString);
 }
 
-builder.Services.AddCors(confg =>
-              confg.AddPolicy("AllowAll",
-                  p => p.AllowAnyOrigin()
-                      .AllowAnyMethod()
-                      .AllowAnyHeader()));
 
 
 
@@ -64,7 +59,6 @@ builder.Services.AddControllersWithViews();
 
 
 var app = builder.Build();
-app.UseCors("AllowAll");
 app.UseStaticFiles();
 app.UseRouting();
 
